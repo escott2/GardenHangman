@@ -1,8 +1,21 @@
 const gameWordArray = ["environment", "watermelon", "maple", "meadow", "autumn", "grass", "season", "sunshine", "temperature"];
-
 const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
+const textBox = document.getElementById("guess-input");
 let gameWord = "";
+const wordPlaceholderArray = [];
+let score = 6;
+
+/*Validation & Additions Needed...
+    -- If the same letter is submitted "You already guessed that. (don't decrement)"
+    -- If more than one letter is submitted "You may only submit one letter. Try again. (don't decrement)"
+    -- Double click event listener. Tackle when brain rested.
+    -- Clean up code. Pass variables into functions rather than accessing global.
+*/
+
+
+
+
 
 
 //Functions *******************************************************
@@ -31,7 +44,6 @@ playBtn.addEventListener("click", () => {
     //     wordPlaceholder += "_ ";
     // }
 
-    const wordPlaceholderArray = [];
     for (let i = 0; i < wordLength; i++)  {
         wordPlaceholderArray.push("_");
     }
@@ -49,34 +61,50 @@ playBtn.addEventListener("click", () => {
 });
 
 submitBtn.addEventListener("click", () => {
-    /*1. Letter submitted checked for in the array.
-    String methods and array methods to do this,
-    is it better to work with a string or array?*/
+    submitLetter();
+    //issue--requires a double click to work, when this line of code exists.
+    textBox.value = '';
+    console.log("clicked");
 
-    let guessLetter = document.getElementById("guess-input").value.toUpperCase();
+});
+
+function submitLetter() {
+
+
+    //local variables*************
+    let guessLetter = textBox.value.toUpperCase();
+    const letterPositionIndex = [];
+
     console.log(guessLetter);
 
-    //2. Logic required, two paths  
-
-    //if letter is in word
-    const letterPositionIndex = [];
-    
-
+    //Check for matching letter and save index to array.
     if (gameWord.split("").includes(guessLetter)) {
         for (let i = 0; i < gameWord.length; i++) {
             if (guessLetter === gameWord[i].toUpperCase()) {
                 letterPositionIndex.push(i);
-            }
+                }
+        }
+      
+        //set correctly guessed letter into array
+        letterPositionIndex.forEach((index) => {
+            wordPlaceholderArray[index] = guessLetter;
+        });
+        console.log(wordPlaceholderArray);
+        document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
+
+    } else {
+        score--; 
+        if (score > 0) {
+            console.log(`You have ${score} points remaining!`);
+        } else {
+            console.log ("GAME OVER");
+
+        }
+
+
     }
 
-    console.log(letterPositionIndex);
+    //else (letter is not in word)
+    //change UI & decrement score...
 
-    //guess letter(s) placed in placeholder array.
-
-    //if letter is not in word
-        //change UI & decrement score...
-
-
-    }
-
-});
+}
