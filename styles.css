@@ -1,7 +1,179 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .d-none {
     display: none;
 }
 
 .d-block {
     display: block;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* typography */
+h1 {
+    font-size: 3em;
+    color: #707070;
+}
+
+
+/* header */
+
+.sun {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.sun-circle {
+    border-radius: 50%;
+    position: absolute;
+}
+
+.sun-outer-circle {
+    border: solid 0.75em #D98723;
+    background-color: #F2B705;
+    width: 200px;
+    height: 200px;
+    box-sizing: border-box;
+}
+
+.sun-outer-middle-circle {
+    background-color: #D98723;
+    width: 150px;
+    height: 150px;
+    left: 25px;
+    top: 25px;
+}
+
+.sun-inner-middle-circle {
+    background-color: #F2B705;
+    width: 100px;
+    height: 100px;
+    left: 50px;
+    top: 50px;
+}
+
+.sun-inner-circle {
+    border: solid 1em #D98723;
+    width: 50px;
+    height: 50px;
+    left: 75px;
+    top: 75px;
+    box-sizing: border-box;
+}
+
+
+
+.title-wrapper {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.cloud-container {
+    /* background-color: blue;
+    border-radius: 50%;*/
+    width: 75%;
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+
+}
+
+.cloud-circle {
+    background-color: #F0F0F0;
+    border-radius: 50%;
+    position: absolute;
+    z-index: -1;
+}
+
+.cloud-circle-1 {
+    width: 150px;
+    height: 150px;
+    top: -15%;
+    left: 0%;
+}
+
+.cloud-circle-2 {
+    width: 100px;
+    height: 100px;
+    top: -50%;
+    left: 28%;
+}
+
+.cloud-circle-3 {
+    width: 125px;
+    height: 125px;
+    top: -35%;
+    left: 48%;
+}
+
+.cloud-circle-4 {
+    width: 100px;
+    height: 100px;
+    top: 35%;
+    left: 48%;
+}
+
+
+
+.input-container {
+    /* background-color: rgb(21, 51, 55); */
+    background-color: #37402A;
+    width: 100%;
+    margin-top: 2em;
+    padding: 4em 4em;
+}
+
+.guess-container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 1em;
+    /* background-color: white; */
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+    .flex-container {
+        flex-direction: row;
+    }
+    
+    .title-wrapper {
+        width: 50%;
+    }
+}
+
+
+@media only screen and (min-width: 1000px) {
+
+    .cloud-circle-1 {
+      
+        top: -45%;
+        left: 8%;
+    }
+    
+    .cloud-circle-2 {
+      
+        top: -60%;
+        left: 28%;
+    }
+    
+    .cloud-circle-3 {
+     
+        top: -50%;
+        left: 58%;
+    }
+
 }
