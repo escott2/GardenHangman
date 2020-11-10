@@ -2,16 +2,17 @@ const gameWordArray = ["environment", "watermelon", "maple", "meadow", "autumn",
 const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
 const textBox = document.getElementById("guess-input");
-const flowerTopContainer = document.querySelector(".js-flower-top-container");
-const flowerTop = document.createElement('div');
+const flowerGrid = document.querySelector(".js-flower-grid");
+
+//create flower SVG & add class
 const flowerImage = document.createElement('img');
 flowerImage.src = "img/burg-flower.svg";
 flowerImage.className = "flower";
-flowerTop.className = "flower-top-div";
-flowerTop.appendChild(flowerImage);
+
+//create stem div & add class
 const flowerStem = document.createElement('div');
 flowerStem.className = "flower-stem";
-const flowerStemContainer = document.querySelector(".js-flower-stem-container");
+
 
 let gameWord = "";
 const wordPlaceholderArray = [];
@@ -42,11 +43,11 @@ function getRandomInt(max) {
 
 function generateFlowers() {
     for (let i = 0; i < 6; i++) {
-        flowerTopContainer.appendChild(flowerTop.cloneNode(true));
+        flowerGrid.appendChild(flowerImage.cloneNode(true));
     }
     //stems
     for (let i = 0; i < 6; i++) {
-        flowerStemContainer.appendChild(flowerStem.cloneNode(true));
+        flowerGrid.appendChild(flowerStem.cloneNode(true));
     }
 
 }

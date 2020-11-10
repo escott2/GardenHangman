@@ -141,51 +141,24 @@ h1 {
     font-size: 2em;
 }
 
-.flower-container {
-    /* position: relative; */
-}
-
-.flower-top-container {
-    /* display: flex;
-    justify-content: space-evenly;
-    align-items: center; */
+.flower-grid {
     display: grid;
     grid-template-columns: 50px 50px 50px 50px 50px 50px;
     grid-column-gap: 15px;
-
-    /* height: 50px; */
-    transform: translateY(2px);
-
-}
-
-.flower-top-div {
-    width: 50px;
-    background-color: red;
 }
 
 .flower {
     width: 50px;
     margin: 0;
-    /* position: absolute; */
-}
-
-
-.flower-stem-container {
-    /* display: flex;
-    justify-content: space-evenly;
-    align-content: center; */
-    display: grid;
-    grid-template-columns: 50px 50px 50px 50px 50px 50px;
-    grid-column-gap: 15px;
 }
 
 .flower-stem {
-    width: 50px;
+    width: 10px;
     height: 50px;
     background-color: #37402A;
     outline: none;
     border: none;
-    /* margin: 0 20px; */
+    margin: 0 20px;
 }
 
 .bottom-container {
