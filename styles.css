@@ -163,21 +163,59 @@ h1 {
 
 .bottom-container {
     /* background-color: rgb(21, 51, 55); */
-    background-color: #37402A;
+    display: flex;
+    align-items: center;
+    background-color: #4B533F;
+    border: 1.5em solid #37402A;
     width: 100%;
     height: 200px;
     /* margin-top: 2em; */
-    padding: 4em 4em;
+    /* padding: 4em 4em; */
+}
+
+.ground-container {
+    display: flex;
+    align-items: center;
+    background-color: #37402A;
+    border: 1.5em solid #4B533F;
+    width: 100%;
+    height: 150px;
+    margin: 0 auto;
+
 }
 
 .guess-container {
-    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin: 0 auto;
-    padding: 1em;
+    height: 60px;
+    /* padding: 1em; */
     /* background-color: white; */
-    background-color: #F0F0F0;
-    border-radius: 10px;
+    background-color: #4B533F;
     text-align: center;
+}
+
+.guess-content {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color:white;
+    margin-right: .8em;
+}
+
+input[type="text"] {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.submit-btn {
+    margin-left: 2em;
+    width: 70px;
+    height: 30px;
+    font-size: 1em;
 }
 
 
