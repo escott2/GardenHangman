@@ -2,6 +2,17 @@ const gameWordArray = ["environment", "watermelon", "maple", "meadow", "autumn",
 const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
 const textBox = document.getElementById("guess-input");
+const flowerTopContainer = document.querySelector(".js-flower-top-container");
+const flowerTop = document.createElement('div');
+const flowerImage = document.createElement('img');
+flowerImage.src = "img/burg-flower.svg";
+flowerImage.className = "flower";
+flowerTop.className = "flower-top-div";
+flowerTop.appendChild(flowerImage);
+const flowerStem = document.createElement('div');
+flowerStem.className = "flower-stem";
+const flowerStemContainer = document.querySelector(".js-flower-stem-container");
+
 let gameWord = "";
 const wordPlaceholderArray = [];
 let score = 6;
@@ -11,6 +22,8 @@ let score = 6;
     -- If more than one letter is submitted "You may only submit one letter. Try again. (don't decrement)"
     -- Double click event listener. Tackle when brain rested.
     -- Clean up code. Pass variables into functions rather than accessing global.
+    -- Option to choose new word..
+    -- Extra.. "You've played all words."
 */
 
 
@@ -27,6 +40,17 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
+function generateFlowers() {
+    for (let i = 0; i < 6; i++) {
+        flowerTopContainer.appendChild(flowerTop.cloneNode(true));
+    }
+    //stems
+    for (let i = 0; i < 6; i++) {
+        flowerStemContainer.appendChild(flowerStem.cloneNode(true));
+    }
+
+}
+
 //Event Listeners**************************************************
 
 playBtn.addEventListener("click", () => {
@@ -39,10 +63,6 @@ playBtn.addEventListener("click", () => {
 
     //3. generate dashes in word-container, same length as chosen word, in variable.
     const wordLength = gameWord.length;
-    // let wordPlaceholder = "";
-    // for (let i = 0; i < wordLength; i++) {
-    //     wordPlaceholder += "_ ";
-    // }
 
     for (let i = 0; i < wordLength; i++)  {
         wordPlaceholderArray.push("_");
@@ -53,10 +73,14 @@ playBtn.addEventListener("click", () => {
     // document.querySelector(".js-word-container").textContent = wordPlaceholder;
     document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
 
+    playBtn.classList.add("d-none");
+
 
     //4. display content
     document.querySelector(".js-display-game").classList.remove("d-none");
     document.querySelector(".js-display-game").classList.add("d-block");
+
+    generateFlowers();
 
 });
 

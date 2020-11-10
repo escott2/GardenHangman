@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
-    <div class="flex-container">
+    <div class="top-container">
         <div class="sun">
             <div class="sun-circle sun-outer-circle"></div>
             <div class="sun-circle sun-outer-middle-circle"></div>
@@ -28,10 +28,28 @@
     <Button class="play-btn js-play-btn">Play!</Button>
 
     <div class="js-display-game d-none">
-        <div class="word-container js-word-container">
+
+        <div class="middle-container">
+            <div class="word-container js-word-container">
+            </div>
+
+            <div class="flower-container">
+                <div class="flower-top-container js-flower-top-container">
+                </div>
+                <div class="flower-stem-container js-flower-stem-container">
+                    <div class="flower-stem"></div>
+                </div>
+            </div>
+            <!-- <div class="flower-container">
+                <div class="flower-top-container js-flower-top-container">
+                </div>
+                <div class="flower-stem-container js-flower-stem-container">
+                    <div class="flower-stem"></div>
+                </div>
+            </div> -->
         </div>
 
-        <div class="input-container">
+        <div class="bottom-container">
             <div class="guess-container">
                 <label for="guess-input">Guess a letter:</label>
                     <input type="textbox" id="guess-input">
