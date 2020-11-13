@@ -1,4 +1,5 @@
 const gameWordArray = ["environment", "watermelon", "maple", "meadow", "autumn", "grass", "season", "sunshine", "temperature"];
+const playBtnDiv = document.querySelector(".js-btn-wrapper");
 const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
 const textBox = document.getElementById("guess-input");
@@ -19,6 +20,7 @@ const wordPlaceholderArray = [];
 let score = 6;
 
 /*Validation & Additions Needed...
+    -- Guessed letters displayed in grid. Black if guess, gray if not.
     -- If the same letter is submitted "You already guessed that. (don't decrement)"
     -- If more than one letter is submitted "You may only submit one letter. Try again. (don't decrement)"
     -- Double click event listener. Tackle when brain rested.
@@ -74,7 +76,8 @@ playBtn.addEventListener("click", () => {
     // document.querySelector(".js-word-container").textContent = wordPlaceholder;
     document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
 
-    playBtn.classList.add("d-none");
+    playBtnDiv.style.display = "none";
+    // playBtnDiv.classList.add("d-none");
 
 
     //4. display content
