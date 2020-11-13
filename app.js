@@ -1,4 +1,7 @@
 const gameWordArray = ["environment", "watermelon", "maple", "meadow", "autumn", "grass", "season", "sunshine", "temperature"];
+const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+const guessedLetters = [];
+const alphabetGrid = document.querySelector(".js-alphabet-grid");
 const playBtnDiv = document.querySelector(".js-btn-wrapper");
 const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
@@ -22,6 +25,8 @@ let score = 6;
 /*Validation & Additions Needed...
     -- Guessed letters displayed in grid. Black if guess, gray if not.
     -- If the same letter is submitted "You already guessed that. (don't decrement)"
+            *** if letter guessed is in guessed array.
+    -- Handle winning and losing.
     -- If more than one letter is submitted "You may only submit one letter. Try again. (don't decrement)"
     -- Double click event listener. Tackle when brain rested.
     -- Clean up code. Pass variables into functions rather than accessing global.
@@ -41,6 +46,26 @@ function countArrayItems(array) {
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
+}
+
+function generateLetterGrid() {
+    for (let letter of alphabet) {
+        const div = document.createElement('div');
+        div.classList = "letter-div";
+        const paragraph = document.createElement('p');
+        paragraph.textContent = letter;
+        div.appendChild(paragraph)
+        alphabetGrid.appendChild(div);
+    }
+    for (let i = 0; i < 4; i++) {
+        const div = document.createElement('div');
+        div.className = "letter-div";
+        const paragraph = document.createElement('p');
+        paragraph.textContent = "!";
+        paragraph.className = "letter-placeholder";
+        div.appendChild(paragraph);
+        alphabetGrid.appendChild(div);
+    }
 }
 
 function generateFlowers() {
@@ -84,6 +109,7 @@ playBtn.addEventListener("click", () => {
     document.querySelector(".js-display-game").classList.remove("d-none");
     document.querySelector(".js-display-game").classList.add("d-block");
 
+    generateLetterGrid();
     generateFlowers();
 
 });
@@ -97,15 +123,18 @@ submitBtn.addEventListener("click", () => {
 });
 
 function submitLetter() {
-
-
-    //local variables*************
     let guessLetter = textBox.value.toUpperCase();
     const letterPositionIndex = [];
+    if (guessLetter.split("").length > 1) {
+        console.log("You entered more than one letter. Try again.")
+        //add a way to show user that this is invalid, shaking box or message.
+
+    } else {
 
     console.log(guessLetter);
 
     //Check for matching letter and save index to array.
+
     if (gameWord.split("").includes(guessLetter)) {
         for (let i = 0; i < gameWord.length; i++) {
             if (guessLetter === gameWord[i].toUpperCase()) {
@@ -126,11 +155,14 @@ function submitLetter() {
             console.log(`You have ${score} points remaining!`);
         } else {
             console.log ("GAME OVER");
-
         }
-
-
+        
     }
+}
+
+    guessedLetters.push(guessLetter);
+    console.log(alphabet.indexOf(guessedLetters[0]));
+
 
     //else (letter is not in word)
     //change UI & decrement score...
