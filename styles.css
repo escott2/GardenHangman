@@ -29,6 +29,7 @@ h1 {
     font-family: 'Vollkorn', serif;
     font-size: 3em;
     color: #442522;
+    opacity: 0;
 }
 
 
@@ -93,7 +94,21 @@ h1 {
     position: relative;
     z-index: 1;
     margin: 0 auto;
+}
 
+.letters-guessed {
+    position: absolute;
+    top: -100px;
+    height: 250px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.8);
+}
+
+.letter-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px 5px;
 }
 
 .cloud-circle {
