@@ -1,4 +1,3 @@
-const gameWordArray = ["environment", "watermelon", "maple", "meadow", "autumn", "grass", "season", "sunshine", "temperature"];
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 const guessedLetters = [];
 const alphabetGrid = document.querySelector(".js-alphabet-grid");
@@ -51,12 +50,13 @@ function getRandomInt(max) {
 function generateLetterGrid() {
     for (let letter of alphabet) {
         const div = document.createElement('div');
-        div.classList = "letter-div";
+        div.className = "letter-div";
         const paragraph = document.createElement('p');
         paragraph.textContent = letter;
         div.appendChild(paragraph)
         alphabetGrid.appendChild(div);
     }
+    //content to fill remaining space in grid, -- is there a better way to do this?
     for (let i = 0; i < 4; i++) {
         const div = document.createElement('div');
         div.className = "letter-div";
@@ -69,6 +69,7 @@ function generateLetterGrid() {
 }
 
 function generateFlowers() {
+    //flower-top
     for (let i = 0; i < 6; i++) {
         flowerGrid.appendChild(flowerImage.cloneNode(true));
     }
@@ -76,15 +77,14 @@ function generateFlowers() {
     for (let i = 0; i < 6; i++) {
         flowerGrid.appendChild(flowerStem.cloneNode(true));
     }
-
 }
 
 //Event Listeners**************************************************
 
 playBtn.addEventListener("click", () => {
     //1. generate random number, to the length of the gameWordArray
-    const countWords = countArrayItems(gameWordArray);
-    const getRandomIndex = getRandomInt(countWords);
+    const numberOfWords = countArrayItems(gameWordArray);
+    const getRandomIndex = getRandomInt(numberOfWords);
 
     //2. use index to choose word from gameWordArray, save in variable
     gameWord = gameWordArray[getRandomIndex].toUpperCase();
@@ -117,54 +117,83 @@ playBtn.addEventListener("click", () => {
 submitBtn.addEventListener("click", () => {
     submitLetter();
     //issue--requires a double click to work, when this line of code exists.
-    textBox.value = '';
+    // textBox.value = '';
     console.log("clicked");
 
 });
 
+
 function submitLetter() {
-    let guessLetter = textBox.value.toUpperCase();
-    const letterPositionIndex = [];
-    if (guessLetter.split("").length > 1) {
+    let guessInput = textBox.value.toUpperCase();
+    const correctLetters = [];
+    
+    if (isMoreThanOneLetter(guessInput)) {
         console.log("You entered more than one letter. Try again.")
-        //add a way to show user that this is invalid, shaking box or message.
-
     } else {
+        if (isMatchingLetter(guessInput)) {
+            setLetter(gameWord, guessInput, correctLetters) 
+            
 
-    console.log(guessLetter);
-
-    //Check for matching letter and save index to array.
-
-    if (gameWord.split("").includes(guessLetter)) {
-        for (let i = 0; i < gameWord.length; i++) {
-            if (guessLetter === gameWord[i].toUpperCase()) {
-                letterPositionIndex.push(i);
-                }
-        }
-      
-        //set correctly guessed letter into array
-        letterPositionIndex.forEach((index) => {
-            wordPlaceholderArray[index] = guessLetter;
-        });
-        console.log(wordPlaceholderArray);
-        document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
-
-    } else {
-        score--; 
-        if (score > 0) {
-            console.log(`You have ${score} points remaining!`);
-        } else {
-            console.log ("GAME OVER");
-        }
+     
         
-    }
+    
+        //Check for matching letter and save index to array.
+
+        console.log(guessInput);
+
+        // if (gameWord.split("").includes(guessInput)) {
+        //     for (let i = 0; i < gameWord.length; i++) {
+        //         if (guessInput === gameWord[i].toUpperCase()) {
+        //             correctLetters.push(i);
+        //             }
+        //     }
+        
+            //set correctly guessed letter into array
+            correctLetters.forEach((index) => {
+                wordPlaceholderArray[index] = guessInput;
+            });
+            console.log(wordPlaceholderArray);
+            document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
+
+        } else {
+            score--; 
+            if (score > 0) {
+                console.log(`You have ${score} points remaining!`);
+            } else {
+                console.log ("GAME OVER");
+            }
+            
+        }
 }
 
-    guessedLetters.push(guessLetter);
+    guessedLetters.push(guessInput);
     console.log(alphabet.indexOf(guessedLetters[0]));
 
+    textBox.value = '';
 
     //else (letter is not in word)
     //change UI & decrement score...
 
 }
+
+
+
+function isMoreThanOneLetter(userInput) {
+    if (userInput.split("").length > 1) {
+        return true;
+    }
+}
+
+function isMatchingLetter(userInput) {
+    if (gameWord.split("").includes(userInput)) {
+        return true;
+    }
+}
+
+function setLetter(word, userInput, correctLetters) {
+    for (let i = 0; i < word.length; i++) {
+        if (userInput === word[i].toUpperCase()) {
+            correctLetters.push(i);
+        }
+    }
+} 
