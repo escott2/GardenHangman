@@ -6,6 +6,7 @@ const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
 const textBox = document.getElementById("guess-input");
 const flowerGrid = document.querySelector(".js-flower-grid");
+const wordDisplay = document.querySelector(".js-word-container");
 
 //create flower SVG & add class
 const flowerImage = document.createElement('img');
@@ -116,45 +117,25 @@ playBtn.addEventListener("click", () => {
 
 submitBtn.addEventListener("click", () => {
     submitLetter();
-    //issue--requires a double click to work, when this line of code exists.
-    // textBox.value = '';
-    console.log("clicked");
-
+    textBox.value = '';
 });
 
 
 function submitLetter() {
     let guessInput = textBox.value.toUpperCase();
-    const correctLetters = [];
-    
+    const correctLetterIndexes = [];
+
     if (isMoreThanOneLetter(guessInput)) {
-        console.log("You entered more than one letter. Try again.")
+        console.log("You entered more than one letter. Try again.");
     } else {
         if (isMatchingLetter(guessInput)) {
-            setLetter(gameWord, guessInput, correctLetters) 
-            
-
-     
-        
-    
-        //Check for matching letter and save index to array.
-
-        console.log(guessInput);
-
-        // if (gameWord.split("").includes(guessInput)) {
-        //     for (let i = 0; i < gameWord.length; i++) {
-        //         if (guessInput === gameWord[i].toUpperCase()) {
-        //             correctLetters.push(i);
-        //             }
-        //     }
-        
-            //set correctly guessed letter into array
-            correctLetters.forEach((index) => {
-                wordPlaceholderArray[index] = guessInput;
-            });
+            setLetterPositions(gameWord, guessInput, correctLetterIndexes);
+            setLetters(correctLetterIndexes, wordPlaceholderArray, guessInput);
+            wordDisplay.textContent = wordPlaceholderArray.join(" ");
+           
+            console.log(guessInput);
             console.log(wordPlaceholderArray);
-            document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
-
+   
         } else {
             score--; 
             if (score > 0) {
@@ -166,10 +147,8 @@ function submitLetter() {
         }
 }
 
-    guessedLetters.push(guessInput);
-    console.log(alphabet.indexOf(guessedLetters[0]));
-
-    textBox.value = '';
+    // guessedLetters.push(guessInput);
+    // console.log(alphabet.indexOf(guessedLetters[0]));
 
     //else (letter is not in word)
     //change UI & decrement score...
@@ -190,10 +169,16 @@ function isMatchingLetter(userInput) {
     }
 }
 
-function setLetter(word, userInput, correctLetters) {
+function setLetterPositions(word, userInput, correctLetterIndexes) {
     for (let i = 0; i < word.length; i++) {
         if (userInput === word[i].toUpperCase()) {
-            correctLetters.push(i);
+            correctLetterIndexes.push(i);
         }
     }
 } 
+
+function setLetters(correctLetterIndexes, wordPlaceholderArray, userInput) {
+    correctLetterIndexes.forEach((index) => {
+        wordPlaceholderArray[index] = userInput;
+    });
+}
