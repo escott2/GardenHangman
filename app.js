@@ -6,21 +6,29 @@ const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
 const textBox = document.getElementById("guess-input");
 const flowerGrid = document.querySelector(".js-flower-grid");
+const scoreDisplay = document.querySelector(".js-score");
 const wordDisplay = document.querySelector(".js-word-container");
+const wordPlaceholderArray = [];
+let gameWord = "";
+let score = 6;
+let isGameOver = false;
 
-//create flower SVG & add class
+
+const scoreContent = document.createElement('p');
+
+//Create flower SVG Element. Add class and attributes.
 const flowerImage = document.createElement('img');
 flowerImage.src = "img/burg-flower.svg";
 flowerImage.className = "flower";
+flowerImage.setAttribute("alt", "flower");
 
-//create stem div & add class
+//Create stem div & add class
 const flowerStem = document.createElement('div');
 flowerStem.className = "flower-stem";
+flowerStem.setAttribute("role", "img");
+flowerStem.setAttribute("aria-label", "flower stem");
 
 
-let gameWord = "";
-const wordPlaceholderArray = [];
-let score = 6;
 
 /*Validation & Additions Needed...
     -- Guessed letters displayed in grid. Black if guess, gray if not.
@@ -110,14 +118,16 @@ playBtn.addEventListener("click", () => {
     document.querySelector(".js-display-game").classList.remove("d-none");
     document.querySelector(".js-display-game").classList.add("d-block");
 
-    generateLetterGrid();
+    // generateLetterGrid();
     generateFlowers();
 
 });
 
 submitBtn.addEventListener("click", () => {
-    submitLetter();
-    textBox.value = '';
+    if (isGameOver === false) {
+        submitLetter();
+        textBox.value = '';
+    }
 });
 
 
@@ -141,10 +151,12 @@ function submitLetter() {
             if (score > 0) {
                 console.log(`You have ${score} points remaining!`);
             } else {
+                isGameOver = true;
                 console.log ("GAME OVER");
-            }
-            
+            }  
         }
+        displayScore();
+
 }
 
     // guessedLetters.push(guessInput);
@@ -154,8 +166,6 @@ function submitLetter() {
     //change UI & decrement score...
 
 }
-
-
 
 function isMoreThanOneLetter(userInput) {
     if (userInput.split("").length > 1) {
@@ -181,4 +191,12 @@ function setLetters(correctLetterIndexes, wordPlaceholderArray, userInput) {
     correctLetterIndexes.forEach((index) => {
         wordPlaceholderArray[index] = userInput;
     });
+}
+
+function displayScore() {
+    if (scoreDisplay.querySelector("scoreContent") != null) {
+        scoreDisplay.removeChild(scoreContent);
+    }
+    scoreContent.textContent = `${score}`;
+    scoreDisplay.appendChild(scoreContent);
 }

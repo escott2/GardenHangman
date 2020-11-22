@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="top-container">
-        <div class="sun">
+        <div role="img" aria-label="sun" class="sun">
             <div class="sun-circle sun-outer-circle"></div>
             <div class="sun-circle sun-outer-middle-circle"></div>
             <div class="sun-circle sun-inner-middle-circle"></div>
@@ -20,10 +20,10 @@
         <div class="title-wrapper">
             <div class="cloud-container">
                 <h1 class="title">Garden Hangman</h1>
-                <div class="cloud-circle cloud-circle-1"></div>
-                <div class="cloud-circle cloud-circle-2"></div>
-                <div class="cloud-circle cloud-circle-3"></div>
-                <div class="cloud-circle cloud-circle-4"></div>
+                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-1"></div>
+                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-2"></div>
+                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-3"></div>
+                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-4"></div>
             </div>
         </div>
         <!-- <div class="letters-guessed alphabet-grid js-alphabet-grid">
@@ -35,8 +35,15 @@
     </div>
     <div class="js-display-game d-none display-game">
 
-        <div class="letters-guessed alphabet-grid js-alphabet-grid">
+        <!-- <div class="letters-guessed alphabet-grid js-alphabet-grid"> -->
             <!-- <h2>Letters Guessed:</h2> -->
+        <!-- </div> -->
+
+        <div class="game-info">
+            <div class="score js-score">
+                <h2>Score</h2>
+            </div>
+            <!-- <div class="cloud-circle foreground-cloud"></div> -->
         </div>
 
         <div class="middle-container">
