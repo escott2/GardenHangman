@@ -1,6 +1,8 @@
 const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-const guessedLetters = [];
 const alphabetGrid = document.querySelector(".js-alphabet-grid");
+
+
+const guessedLetters = [];
 const playBtnDiv = document.querySelector(".js-btn-wrapper");
 const playBtn = document.querySelector(".js-play-btn");
 const submitBtn = document.querySelector(".js-submit-btn");
@@ -16,22 +18,8 @@ let message = "Enter a letter to get started!"
 let targetFlowerIndex = -1;
 let isGameOver = false;
 
-
-
 const scoreContent = document.createElement('p');
 const messageContent = document.createElement('p');
-
-// //Create flower SVG Element. Add class and attributes.
-// const flowerImage = document.createElement('img');
-// flowerImage.src = "img/burg-flower.svg";
-// flowerImage.className = "flower";
-// flowerImage.setAttribute("alt", "flower");
-
-// //Create stem div & add class
-// const flowerStem = document.createElement('div');
-// flowerStem.className = "flower-stem";
-// flowerStem.setAttribute("role", "img");
-// flowerStem.setAttribute("aria-label", "flower stem");
 
 
 
@@ -45,6 +33,8 @@ const messageContent = document.createElement('p');
     -- Clean up code. Pass variables into functions rather than accessing global.
     -- Option to choose new word..
     -- Extra.. "You've played all words."
+    -- When game is over, show the rest of the word.
+    -- Extra - Merriam Webster Dictionary API, display definition as hint. Learn new words.
 */
 
 
@@ -103,30 +93,6 @@ function generateFlowers() {
     }
 }
 
-
-// //Create flower SVG Element. Add class and attributes.
-// const flowerImage = document.createElement('img');
-// flowerImage.src = "img/burg-flower.svg";
-// flowerImage.className = "flower";
-// flowerImage.setAttribute("alt", "flower");
-
-
-
-
-
-// function generateFlowers() {
-//     //flower-top
-//     for (let i = 0; i < 6; i++) {
-//         flowerImage.classList.add(`${i}-flower`);
-//         // flowerGrid.appendChild(flowerImage.cloneNode(true));
-//     }
-//     //stems
-//     for (let i = 0; i < 6; i++) {
-//         flowerStem.classList.add(`${i}-flower`);
-//         flowerGrid.appendChild(flowerStem.cloneNode(true));
-//     }
-// }
-
 //Event Listeners**************************************************
 
 playBtn.addEventListener("click", () => {
@@ -143,8 +109,6 @@ playBtn.addEventListener("click", () => {
     for (let i = 0; i < wordLength; i++)  {
         wordPlaceholderArray.push("_");
     }
-
-    console.log(gameWord);
 
     // document.querySelector(".js-word-container").textContent = wordPlaceholder;
     document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
@@ -171,6 +135,14 @@ submitBtn.addEventListener("click", () => {
     }
 });
 
+document.addEventListener("keydown", (e)=> {
+    if (e.key == "Enter") {
+        if (isGameOver === false) {
+            submitLetter();
+            textBox.value = '';
+        }
+    }
+});
 
 function submitLetter() {
     let guessInput = textBox.value.toUpperCase();
@@ -179,7 +151,9 @@ function submitLetter() {
     if (isMoreThanOneLetter(guessInput)) {
         message = "You entered more than one letter. Try again.";
         displayMessage(message);
-        console.log("You entered more than one letter. Try again.");
+    } else if (isPrevGuessedLetter(guessInput)) {
+        message = "You already guessed that letter. Try again."
+        displayMessage(message);
     } else {
         if (isMatchingLetter(guessInput)) {
             setLetterPositions(gameWord, guessInput, correctLetterIndexes);
@@ -187,45 +161,36 @@ function submitLetter() {
             wordDisplay.textContent = wordPlaceholderArray.join(" ");
             message = "You guessed correctly!"
             displayMessage(message);
-           
-            console.log(guessInput);
-            console.log(wordPlaceholderArray);
    
         } else {
-            
-            // const flowerChildren = flowerGrid.childNodes;
-            // console.log(flowerChildren);
-            // flowerChildren[1].classList.add("d-none");
-            // flowerChildren[8].classList.add("d-none");
-            // const firstFlower = document.querySelector(".flower-0");
-            // firstFlower.setAttribute("src", "img/spike-flower.svg");
-
             targetFlowerIndex++;
             score--; 
             transformFlower(targetFlowerIndex);
             if (score > 0) {
                 message = `Too bad. You guessed incorrectly! ${score} incorrect guesses remain.`;
                 displayMessage(message);
-                console.log(`You have ${score} points remaining!`);
             } else {
                 isGameOver = true;
-                console.log ("GAME OVER");
+                message = "GAME OVER";
+                displayMessage(message);
+                wordDisplay.textContent = gameWord;
+
             }  
         }
         displayScore();
-}
-
         guessedLetters.push(guessInput);
-        console.log(guessedLetters);
-    // console.log(alphabet.indexOf(guessedLetters[0]));
-
-    //else (letter is not in word)
-    //change UI & decrement score...
+}
 
 }
 
 function isMoreThanOneLetter(userInput) {
     if (userInput.split("").length > 1) {
+        return true;
+    }
+}
+
+function isPrevGuessedLetter(userInput) {
+    if (guessedLetters.includes(userInput)) {
         return true;
     }
 }
@@ -267,7 +232,5 @@ function displayMessage(message) {
 
 function transformFlower(targetFlowerIndex) {
     const targetFlower = document.querySelector(`.flower-${targetFlowerIndex}`);
-    console.log(targetFlowerIndex);
-    console.log(targetFlower);
     targetFlower.setAttribute("src", "img/spike-flower.svg");
 }

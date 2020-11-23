@@ -19,19 +19,24 @@
     align-items: center;
     margin-top: 1em;
     padding: 1em;
-    transform: translateY(-75px);
+    /* transform: translateY(-157px); */
 }
 
 body {
     font-family: 'Vollkorn', serif;
+    transform: translateY(-157px);
 }
 
 /* typography */
 h1 {
     font-family: 'Vollkorn', serif;
-    font-size: 3em;
+    font-size: 3rem;
     color: #442522;
     opacity: 0;
+}
+
+h2 {
+    font-size: 1.5rem;
 }
 
 
@@ -140,6 +145,7 @@ h1 {
     z-index: -1;
 }
 
+
 .cloud-circle-1 {
     width: 150px;
     height: 150px;
@@ -176,30 +182,6 @@ h1 {
     z-index: 2;
 }
 
-.info-wrapper {
-    position: absolute;
-    top: -200px;
-    width: 275px;
-    height: 275px;
-    text-align: center;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    /* background-color: rgba(240,240,240, 0.6); */
-    background-color: white;
-    border: solid 0.5em #E8E8E8;
-    border-radius: 200px;
-    z-index: 5;
-}
-
-.game-info {
-    width: 200px;
-    margin: 0 auto;
-    margin-top: 20px;
-    
-}
-
 .btn-wrapper {
     width: 100%;
     display: flex;
@@ -227,6 +209,7 @@ h1 {
 
 .display-game {
     position: relative;
+    /* transform: translateY(-50px); */
 }
 
 .middle-container {
@@ -234,6 +217,37 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.info-wrapper {
+    /* position: absolute; */
+    top: -160px;
+    width: 235px;
+    height: 235px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: #E8E8E8;
+    border: solid 0.5em #E8E8E8; */
+    /* border-radius: 200px; */
+    z-index: 5;
+}
+
+.game-info {
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 35px;  
+}
+
+.score {
+    font-size: 1.5rem;
+    margin-bottom: 0.35em;
+}
+
+.message {
+    letter-spacing: 1px;
 }
 
 .word-container {
@@ -248,8 +262,6 @@ h1 {
 .flower-grid {
     display: grid;
     grid-template-columns: repeat(6, minmax(42px, 1fr));
-    /* grid-template-rows:  */
-    /* grid-template-columns: 50px 50px 50px 50px 50px 50px; */
     column-gap: 5px;
     align-items: end;
 }
@@ -273,9 +285,10 @@ h1 {
 .bottom-container {
     /* background-color: rgb(21, 51, 55); */
     display: flex;
+    justify-content: center;
     align-items: center;
-    background-color: #4B533F;
-    border: 1.5em solid #37402A;
+    background-color: #37402A;
+    /* border: 1.5em solid #37402A; */
     width: 100%;
     height: 200px;
     position: relative;
@@ -283,7 +296,7 @@ h1 {
     /* padding: 4em 4em; */
 }
 
-.ground-container {
+/* .ground-container {
     display: flex;
     align-items: center;
     background-color: #37402A;
@@ -292,40 +305,63 @@ h1 {
     height: 150px;
     margin: 0 auto;
 
-}
+} */
 
 .guess-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     margin: 0 auto;
-    height: 60px;
+    /* height: 60px; */
     /* padding: 1em; */
     /* background-color: white; */
-    background-color: #4B533F;
+    /* background-color: #4B533F; */
     text-align: center;
+
 }
 
-.guess-content {
-    font-size: 2rem;
+.guess-prompt {
+    font-size: 1.5rem;
     letter-spacing: 2px;
     color:white;
-    margin-right: .8em;
+    margin: 0 .8em;
 }
 
 input[type="text"] {
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
+    border: none;
+    border: 0.25em solid #442522 ;
+    border-radius: 100px;
     font-size: 2rem;
     text-align: center;
 }
 
+/* border: #D98723 */
+
 .submit-btn {
-    margin-left: 2em;
-    width: 70px;
-    height: 30px;
+    /* margin-left: 2em; */
+    margin: .5em 2em;
+    padding: .5em 5em;
     font-size: 1em;
+    cursor: pointer;
+    background-color: #F2B705;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px 2px black;
+    /* outline: none; */
+    font-family: inherit;
+}
+
+.submit-btn:hover {
+    background-color: #D98723;
+}
+
+.submit-btn:active {
+    background-color: #442522;
+    outline: none;
 }
 
 
@@ -342,6 +378,8 @@ input[type="text"] {
     .word-container {
         font-size: 3em;
         letter-spacing: 5px;
+        margin-top: 2em;
+        margin-bottom: 0.75em;
     }
 
     .flower {
@@ -350,6 +388,22 @@ input[type="text"] {
 
     .flower-stem {
         width: 10px;
+    }
+
+    body {
+        transform: translateY(-75px);
+    }
+
+    .info-wrapper {
+        top: -150px;
+    }
+
+    .guess-container {
+        flex-direction: row;
+    }
+
+    .submit-btn {
+        padding: .5em .5em;
     }
 
 }
