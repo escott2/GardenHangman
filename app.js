@@ -7,26 +7,31 @@ const submitBtn = document.querySelector(".js-submit-btn");
 const textBox = document.getElementById("guess-input");
 const flowerGrid = document.querySelector(".js-flower-grid");
 const scoreDisplay = document.querySelector(".js-score");
+const messageDisplay = document.querySelector(".js-message");
 const wordDisplay = document.querySelector(".js-word-container");
 const wordPlaceholderArray = [];
 let gameWord = "";
 let score = 6;
+let message = "Enter a letter to get started!"
+let targetFlowerIndex = -1;
 let isGameOver = false;
 
 
+
 const scoreContent = document.createElement('p');
+const messageContent = document.createElement('p');
 
-//Create flower SVG Element. Add class and attributes.
-const flowerImage = document.createElement('img');
-flowerImage.src = "img/burg-flower.svg";
-flowerImage.className = "flower";
-flowerImage.setAttribute("alt", "flower");
+// //Create flower SVG Element. Add class and attributes.
+// const flowerImage = document.createElement('img');
+// flowerImage.src = "img/burg-flower.svg";
+// flowerImage.className = "flower";
+// flowerImage.setAttribute("alt", "flower");
 
-//Create stem div & add class
-const flowerStem = document.createElement('div');
-flowerStem.className = "flower-stem";
-flowerStem.setAttribute("role", "img");
-flowerStem.setAttribute("aria-label", "flower stem");
+// //Create stem div & add class
+// const flowerStem = document.createElement('div');
+// flowerStem.className = "flower-stem";
+// flowerStem.setAttribute("role", "img");
+// flowerStem.setAttribute("aria-label", "flower stem");
 
 
 
@@ -77,16 +82,50 @@ function generateLetterGrid() {
     }
 }
 
+
+
 function generateFlowers() {
     //flower-top
     for (let i = 0; i < 6; i++) {
-        flowerGrid.appendChild(flowerImage.cloneNode(true));
+        const flowerImage = document.createElement('img');
+        flowerImage.src = "img/burg-flower.svg";
+        flowerImage.classList.add("flower", `flower-${i}`);
+        flowerImage.setAttribute("alt", "flower");
+        flowerGrid.appendChild(flowerImage);
     }
     //stems
     for (let i = 0; i < 6; i++) {
-        flowerGrid.appendChild(flowerStem.cloneNode(true));
+        const flowerStem = document.createElement('div');
+        flowerStem.classList.add("flower-stem");
+        flowerStem.setAttribute("role", "img");
+        flowerStem.setAttribute("aria-label", "flower stem");
+        flowerGrid.appendChild(flowerStem);
     }
 }
+
+
+// //Create flower SVG Element. Add class and attributes.
+// const flowerImage = document.createElement('img');
+// flowerImage.src = "img/burg-flower.svg";
+// flowerImage.className = "flower";
+// flowerImage.setAttribute("alt", "flower");
+
+
+
+
+
+// function generateFlowers() {
+//     //flower-top
+//     for (let i = 0; i < 6; i++) {
+//         flowerImage.classList.add(`${i}-flower`);
+//         // flowerGrid.appendChild(flowerImage.cloneNode(true));
+//     }
+//     //stems
+//     for (let i = 0; i < 6; i++) {
+//         flowerStem.classList.add(`${i}-flower`);
+//         flowerGrid.appendChild(flowerStem.cloneNode(true));
+//     }
+// }
 
 //Event Listeners**************************************************
 
@@ -120,6 +159,8 @@ playBtn.addEventListener("click", () => {
 
     // generateLetterGrid();
     generateFlowers();
+    displayMessage(message);
+    displayScore(score);
 
 });
 
@@ -136,19 +177,35 @@ function submitLetter() {
     const correctLetterIndexes = [];
 
     if (isMoreThanOneLetter(guessInput)) {
+        message = "You entered more than one letter. Try again.";
+        displayMessage(message);
         console.log("You entered more than one letter. Try again.");
     } else {
         if (isMatchingLetter(guessInput)) {
             setLetterPositions(gameWord, guessInput, correctLetterIndexes);
             setLetters(correctLetterIndexes, wordPlaceholderArray, guessInput);
             wordDisplay.textContent = wordPlaceholderArray.join(" ");
+            message = "You guessed correctly!"
+            displayMessage(message);
            
             console.log(guessInput);
             console.log(wordPlaceholderArray);
    
         } else {
+            
+            // const flowerChildren = flowerGrid.childNodes;
+            // console.log(flowerChildren);
+            // flowerChildren[1].classList.add("d-none");
+            // flowerChildren[8].classList.add("d-none");
+            // const firstFlower = document.querySelector(".flower-0");
+            // firstFlower.setAttribute("src", "img/spike-flower.svg");
+
+            targetFlowerIndex++;
             score--; 
+            transformFlower(targetFlowerIndex);
             if (score > 0) {
+                message = `Too bad. You guessed incorrectly! ${score} incorrect guesses remain.`;
+                displayMessage(message);
                 console.log(`You have ${score} points remaining!`);
             } else {
                 isGameOver = true;
@@ -156,10 +213,10 @@ function submitLetter() {
             }  
         }
         displayScore();
-
 }
 
-    // guessedLetters.push(guessInput);
+        guessedLetters.push(guessInput);
+        console.log(guessedLetters);
     // console.log(alphabet.indexOf(guessedLetters[0]));
 
     //else (letter is not in word)
@@ -194,9 +251,23 @@ function setLetters(correctLetterIndexes, wordPlaceholderArray, userInput) {
 }
 
 function displayScore() {
-    if (scoreDisplay.querySelector("scoreContent") != null) {
+    if (scoreDisplay.querySelector("scoreContent") !== null) {
         scoreDisplay.removeChild(scoreContent);
     }
     scoreContent.textContent = `${score}`;
     scoreDisplay.appendChild(scoreContent);
+}
+
+function displayMessage(message) {
+    if (messageDisplay.querySelector("messageContent") !== null) {
+        messageDisplay.removeChild(messageContent);
+    }
+    messageDisplay.textContent = message;
+}
+
+function transformFlower(targetFlowerIndex) {
+    const targetFlower = document.querySelector(`.flower-${targetFlowerIndex}`);
+    console.log(targetFlowerIndex);
+    console.log(targetFlower);
+    targetFlower.setAttribute("src", "img/spike-flower.svg");
 }
