@@ -176,7 +176,7 @@ h1 {
     z-index: 2;
 }
 
-.game-info {
+.info-wrapper {
     position: absolute;
     top: -200px;
     width: 275px;
@@ -191,6 +191,13 @@ h1 {
     border: solid 0.5em #E8E8E8;
     border-radius: 200px;
     z-index: 5;
+}
+
+.game-info {
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    
 }
 
 .btn-wrapper {

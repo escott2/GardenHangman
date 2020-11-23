@@ -12,10 +12,14 @@ const wordDisplay = document.querySelector(".js-word-container");
 const wordPlaceholderArray = [];
 let gameWord = "";
 let score = 6;
+let message = "Enter a letter to get started!"
+let targetFlowerIndex = -1;
 let isGameOver = false;
 
 
+
 const scoreContent = document.createElement('p');
+const messageContent = document.createElement('p');
 
 // //Create flower SVG Element. Add class and attributes.
 // const flowerImage = document.createElement('img');
@@ -155,6 +159,8 @@ playBtn.addEventListener("click", () => {
 
     // generateLetterGrid();
     generateFlowers();
+    displayMessage(message);
+    displayScore(score);
 
 });
 
@@ -171,13 +177,16 @@ function submitLetter() {
     const correctLetterIndexes = [];
 
     if (isMoreThanOneLetter(guessInput)) {
-        messageDisplay.textContent = "You entered more than one letter. Try again.";
+        message = "You entered more than one letter. Try again.";
+        displayMessage(message);
         console.log("You entered more than one letter. Try again.");
     } else {
         if (isMatchingLetter(guessInput)) {
             setLetterPositions(gameWord, guessInput, correctLetterIndexes);
             setLetters(correctLetterIndexes, wordPlaceholderArray, guessInput);
             wordDisplay.textContent = wordPlaceholderArray.join(" ");
+            message = "You guessed correctly!"
+            displayMessage(message);
            
             console.log(guessInput);
             console.log(wordPlaceholderArray);
@@ -188,11 +197,15 @@ function submitLetter() {
             // console.log(flowerChildren);
             // flowerChildren[1].classList.add("d-none");
             // flowerChildren[8].classList.add("d-none");
-            const firstFlowerParts = document.querySelector(".flower-0");
-            firstFlowerParts.setAttribute("src", "img/spike-flower.svg");
+            // const firstFlower = document.querySelector(".flower-0");
+            // firstFlower.setAttribute("src", "img/spike-flower.svg");
 
+            targetFlowerIndex++;
             score--; 
+            transformFlower(targetFlowerIndex);
             if (score > 0) {
+                message = `Too bad. You guessed incorrectly! ${score} incorrect guesses remain.`;
+                displayMessage(message);
                 console.log(`You have ${score} points remaining!`);
             } else {
                 isGameOver = true;
@@ -200,10 +213,10 @@ function submitLetter() {
             }  
         }
         displayScore();
-
 }
 
-    // guessedLetters.push(guessInput);
+        guessedLetters.push(guessInput);
+        console.log(guessedLetters);
     // console.log(alphabet.indexOf(guessedLetters[0]));
 
     //else (letter is not in word)
@@ -245,6 +258,16 @@ function displayScore() {
     scoreDisplay.appendChild(scoreContent);
 }
 
-function displayMessage() {
+function displayMessage(message) {
+    if (messageDisplay.querySelector("messageContent") !== null) {
+        messageDisplay.removeChild(messageContent);
+    }
+    messageDisplay.textContent = message;
+}
 
+function transformFlower(targetFlowerIndex) {
+    const targetFlower = document.querySelector(`.flower-${targetFlowerIndex}`);
+    console.log(targetFlowerIndex);
+    console.log(targetFlower);
+    targetFlower.setAttribute("src", "img/spike-flower.svg");
 }
