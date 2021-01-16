@@ -1,78 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Garden Hangman</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css" type="text/css">
-</head>
-<body>
-    <div class="top-container">
-        <div role="img" aria-label="sun" class="sun">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+  </head>
+  <body>
+    <main>
+      <div>
+        <div class="top-container">
+          <div role="img" aria-label="sun" class="sun">
             <div class="sun-circle sun-outer-circle"></div>
             <div class="sun-circle sun-outer-middle-circle"></div>
             <div class="sun-circle sun-inner-middle-circle"></div>
             <div class="sun-circle sun-inner-circle"></div>
-        </div>  
+          </div>
 
-        <div class="title-wrapper">
+          <div class="title-wrapper">
             <div class="cloud-container">
-                <h1 class="title">Garden Hangman</h1>
-                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-1"></div>
-                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-2"></div>
-                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-3"></div>
-                <div role="img" aria-label="cloud" class="cloud-circle cloud-circle-4"></div>
+              <h1 class="title">Garden Hangman</h1>
+              <div
+                role="img"
+                aria-label="cloud"
+                class="cloud-circle cloud-circle-1"
+              ></div>
+              <div
+                role="img"
+                aria-label="cloud"
+                class="cloud-circle cloud-circle-2"
+              ></div>
+              <div
+                role="img"
+                aria-label="cloud"
+                class="cloud-circle cloud-circle-3"
+              ></div>
+              <div
+                role="img"
+                aria-label="cloud"
+                class="cloud-circle cloud-circle-4"
+              ></div>
             </div>
+          </div>
+          <!-- <div class="letters-guessed alphabet-grid js-alphabet-grid">
+            </div> -->
         </div>
-        <!-- <div class="letters-guessed alphabet-grid js-alphabet-grid">
-        </div> -->
+        <div class="btn-wrapper js-btn-wrapper">
+          <button class="play-btn js-play-btn">Play</button>
+        </div>
+        <div class="js-display-game d-none display-game">
+          <!-- <div class="letters-guessed alphabet-grid js-alphabet-grid"> -->
+          <!-- <h2>Letters Guessed:</h2> -->
+          <!-- </div> -->
 
-    </div>
-    <div class="btn-wrapper js-btn-wrapper">
-        <Button class="play-btn js-play-btn">Play</Button>
-    </div>
-    <div class="js-display-game d-none display-game">
-
-        <!-- <div class="letters-guessed alphabet-grid js-alphabet-grid"> -->
-            <!-- <h2>Letters Guessed:</h2> -->
-        <!-- </div> -->
-
-        <div class="info-wrapper cloud-circle">
+          <div class="info-wrapper cloud-circle">
             <div class="game-info">
-                <div class="score js-score">
-                    <h2>Score</h2>
-                </div>
-                <div class="message js-message"></div>
-                <!-- <div class="cloud-circle foreground-cloud"></div> -->
+              <div class="score js-score">
+                <h2>Score</h2>
+              </div>
+              <div class="message js-message"></div>
+              <!-- <div class="cloud-circle foreground-cloud"></div> -->
             </div>
-        </div>
+          </div>
 
-        <div class="middle-container">
+          <div class="middle-container">
+            <div class="word-container js-word-container"></div>
 
-            <div class="word-container js-word-container">
-            </div>
+            <div class="flower-grid js-flower-grid"></div>
+          </div>
 
-            <div class="flower-grid js-flower-grid">
-            </div>
-        </div>
-
-        <div class="bottom-container">
-
+          <div class="bottom-container">
             <div class="ground-container">
-                <div class="guess-container">
-                    <label class="guess-prompt" for="guess-input">Guess a Letter</label>
-                        <input type="text" id="guess-input">
-            
-                    <button class="submit-btn js-submit-btn">Submit</button>
-                </div>
+              <div class="guess-container">
+                <label class="guess-prompt" for="guess-input"
+                  >Guess a Letter</label
+                >
+                <input type="text" id="guess-input" />
+
+                <button class="submit-btn js-submit-btn">Submit</button>
+              </div>
             </div>
+          </div>
+
+          <button class="word-btn">Click to view words</button>
+
+          <div class="word-data-container"></div>
         </div>
-    </div>
+      </div>
+    </main>
 
     <script src="game-words.js"></script>
     <script src="app.js"></script>
-    
-</body>
+    <script src="reference.js"></script>
+  </body>
 </html>
