@@ -27,6 +27,7 @@ async function getWords(url) {
         return {word, definition};
     });
 
+    // return words;
     return Promise.all(words);
 }
 
@@ -43,16 +44,48 @@ const generateHTML = (data) => {
     });
 }
 
+let dataWord = "";
+
+const generateData = (data) => {
+    console.log(data);
+    const h2 = document.createElement("h2");
+    wordContainer.appendChild(h2);
+    const p = document.createElement("p");
+    wordContainer.appendChild(p);
+
+    const randomIndex = getRandomInt(data.length);
+
+    // console.log(data[randomIndex].word);
+    console.log(randomIndex);
+
+    h2.textContent = `${data[randomIndex].word}`;
+    p.textContent = `${data[randomIndex].definition}`;
+
+    dataWord = data[randomIndex].word;
+
+    // data.map (entry => {
+    //     h2.textContent = `${entry.word}`;
+    //     p.textContent = `${entry.definition}`;
+    // }
+    //)
+}
+
+
+
 wordBtn.addEventListener("click", (event) => {
     console.log("clicked");
     event.target.textContent = "Loading";
 
     getWords(dataMuseUrl)
-        .then(generateHTML)
-        // .then(console.log)
+        // .then(generateHTML)
+        // .then((data) => {console.log(data.length)})
+        .then(generateData)
         .catch( e => {
             wordContainer.innerHTML = "<h3>Something went wrong!</h3>";
             console.error(e);
         })
+
+
         // .finally( () => event.target.remove() )   
 });
+

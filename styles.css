@@ -24,7 +24,7 @@
 
 body {
     font-family: 'Vollkorn', serif;
-    transform: translateY(-157px);
+    /* transform: translateY(-157px); */
 }
 
 /* typography */
@@ -366,10 +366,12 @@ input[type="text"] {
 
 
 
+
+
 @media only screen and (min-width: 600px) {
 
     main {
-        height: 100vh;
+        /* height: 100vh; */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -398,9 +400,9 @@ input[type="text"] {
         width: 10px;
     }
 
-    body {
+    /* body {
         transform: translateY(-75px);
-    }
+    } */
 
     .info-wrapper {
         top: -150px;
@@ -439,4 +441,11 @@ input[type="text"] {
         margin:0 auto;
     }
 
+}
+
+@media only screen and (min-width: 1600px) {
+    .word-data-container {
+        background-color: #37402A;
+        height: 200px;
+    }
 }
