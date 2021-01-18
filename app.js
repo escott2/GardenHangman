@@ -12,7 +12,7 @@ const scoreDisplay = document.querySelector(".js-score");
 const messageDisplay = document.querySelector(".js-message");
 const wordDisplay = document.querySelector(".js-word-container");
 const wordPlaceholderArray = [];
-let gameWord = "";
+// let gameWord = "";
 let score = 6;
 let message = "Enter a letter to get started!"
 let targetFlowerIndex = -1;
@@ -51,26 +51,26 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function generateLetterGrid() {
-    for (let letter of alphabet) {
-        const div = document.createElement('div');
-        div.className = "letter-div";
-        const paragraph = document.createElement('p');
-        paragraph.textContent = letter;
-        div.appendChild(paragraph)
-        alphabetGrid.appendChild(div);
-    }
-    //content to fill remaining space in grid, -- is there a better way to do this?
-    for (let i = 0; i < 4; i++) {
-        const div = document.createElement('div');
-        div.className = "letter-div";
-        const paragraph = document.createElement('p');
-        paragraph.textContent = "!";
-        paragraph.className = "letter-placeholder";
-        div.appendChild(paragraph);
-        alphabetGrid.appendChild(div);
-    }
-}
+// function generateLetterGrid() {
+//     for (let letter of alphabet) {
+//         const div = document.createElement('div');
+//         div.className = "letter-div";
+//         const paragraph = document.createElement('p');
+//         paragraph.textContent = letter;
+//         div.appendChild(paragraph)
+//         alphabetGrid.appendChild(div);
+//     }
+//     //content to fill remaining space in grid, -- is there a better way to do this?
+//     for (let i = 0; i < 4; i++) {
+//         const div = document.createElement('div');
+//         div.className = "letter-div";
+//         const paragraph = document.createElement('p');
+//         paragraph.textContent = "!";
+//         paragraph.className = "letter-placeholder";
+//         div.appendChild(paragraph);
+//         alphabetGrid.appendChild(div);
+//     }
+// }
 
 
 
@@ -97,34 +97,71 @@ function generateFlowers() {
 
 playBtn.addEventListener("click", () => {
     //1. generate random number, to the length of the gameWordArray
-    const numberOfWords = countArrayItems(gameWordArray);
-    const getRandomIndex = getRandomInt(numberOfWords);
+    //START EDITING, BEFORE API
+    // const numberOfWords = countArrayItems(gameWordArray);
+    // const getRandomIndex = getRandomInt(numberOfWords);
+    //END EDITING, BEFORE API
+
 
     //2. use index to choose word from gameWordArray, save in variable
-    gameWord = gameWordArray[getRandomIndex].toUpperCase();
+    //START EDITING, BEFORE API
+    // gameWord = gameWordArray[getRandomIndex].toUpperCase();
+    //END EDITING, BEFORE API
 
-    //3. generate dashes in word-container, same length as chosen word, in variable.
-    const wordLength = gameWord.length;
+    getWords(dataMuseUrl)
+    .then(generateData)
+    .then((data) => { 
+        //3. generate dashes in word-container, same length as chosen word, in variable.
+        const wordLength = gameWord.length;
+    
+        for (let i = 0; i < wordLength; i++)  {
+             wordPlaceholderArray.push("_");
+         }
+    
+        // document.querySelector(".js-word-container").textContent = wordPlaceholder;
+        document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
+    
+        playBtnDiv.style.display = "none";
+        // // playBtnDiv.classList.add("d-none");
+    
+    
+        // //4. display content
+        document.querySelector(".js-display-game").classList.remove("d-none");
+        document.querySelector(".js-display-game").classList.add("d-block");
+    
+        // generateLetterGrid();
+        generateFlowers();
+        displayMessage(message);
+        displayScore(score);})
+    .catch( e => {
+        wordContainer.innerHTML = "<h3>Something went wrong!</h3>";
+        console.error(e);
+    })
 
-    for (let i = 0; i < wordLength; i++)  {
-        wordPlaceholderArray.push("_");
-    }
-
-    // document.querySelector(".js-word-container").textContent = wordPlaceholder;
-    document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
-
-    playBtnDiv.style.display = "none";
-    // playBtnDiv.classList.add("d-none");
 
 
-    //4. display content
-    document.querySelector(".js-display-game").classList.remove("d-none");
-    document.querySelector(".js-display-game").classList.add("d-block");
+    // //3. generate dashes in word-container, same length as chosen word, in variable.
+    // const wordLength = gameWord.length;
+
+    // for (let i = 0; i < wordLength; i++)  {
+    //     wordPlaceholderArray.push("_");
+    // }
+
+    // // document.querySelector(".js-word-container").textContent = wordPlaceholder;
+    // document.querySelector(".js-word-container").textContent = wordPlaceholderArray.join(" ");
+
+    // playBtnDiv.style.display = "none";
+    // // playBtnDiv.classList.add("d-none");
+
+
+    // //4. display content
+    // document.querySelector(".js-display-game").classList.remove("d-none");
+    // document.querySelector(".js-display-game").classList.add("d-block");
 
     // generateLetterGrid();
-    generateFlowers();
-    displayMessage(message);
-    displayScore(score);
+    // generateFlowers();
+    // displayMessage(message);
+    // displayScore(score);
 
 });
 
