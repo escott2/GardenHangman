@@ -1,6 +1,4 @@
-const alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-const alphabetGrid = document.querySelector(".js-alphabet-grid");
-
+const title = document.querySelector("h1");
 
 const guessedLetters = [];
 const playBtnDiv = document.querySelector(".js-btn-wrapper");
@@ -96,6 +94,8 @@ function generateFlowers() {
 //Event Listeners**************************************************
 
 playBtn.addEventListener("click", () => {
+
+    title.style.opacity = "0";
     //1. generate random number, to the length of the gameWordArray
     //START EDITING, BEFORE API
     // const numberOfWords = countArrayItems(gameWordArray);
@@ -134,7 +134,7 @@ playBtn.addEventListener("click", () => {
         displayMessage(message);
         displayScore(score);})
     .catch( e => {
-        wordContainer.innerHTML = "<h3>Something went wrong!</h3>";
+        console.log("Something went wrong");
         console.error(e);
     })
 
