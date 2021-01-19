@@ -32,7 +32,6 @@ h1 {
     font-family: 'Vollkorn', serif;
     font-size: 3rem;
     color: #442522;
-    opacity: 0;
 }
 
 h2 {
@@ -387,6 +386,24 @@ input[type="text"] {
 .submit-btn:active {
     background-color: #442522;
     outline: none;
+}
+
+footer {
+    background-color: #4B533F;
+    padding: 1em;
+    color: white;
+    color: #1E2711;
+    text-align: center;
+    font-weight: 700;
+
+}
+
+.credits {
+    font-weight: 400;
+    padding: 1em;
+    color: #1E2711;
+    text-align: left;
+
 }
 
 
