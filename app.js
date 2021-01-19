@@ -22,22 +22,11 @@ const messageContent = document.createElement('p');
 
 
 /*Validation & Additions Needed...
-    -- Guessed letters displayed in grid. Black if guess, gray if not.
-    -- If the same letter is submitted "You already guessed that. (don't decrement)"
-            *** if letter guessed is in guessed array.
+  
     -- Handle winning and losing.
-    -- If more than one letter is submitted "You may only submit one letter. Try again. (don't decrement)"
-    -- Double click event listener. Tackle when brain rested.
-    -- Clean up code. Pass variables into functions rather than accessing global.
     -- Option to choose new word..
-    -- Extra.. "You've played all words."
-    -- When game is over, show the rest of the word.
-    -- Extra - Merriam Webster Dictionary API, display definition as hint. Learn new words.
+
 */
-
-
-
-
 
 
 //Functions *******************************************************
@@ -48,29 +37,6 @@ function countArrayItems(array) {
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
-
-// function generateLetterGrid() {
-//     for (let letter of alphabet) {
-//         const div = document.createElement('div');
-//         div.className = "letter-div";
-//         const paragraph = document.createElement('p');
-//         paragraph.textContent = letter;
-//         div.appendChild(paragraph)
-//         alphabetGrid.appendChild(div);
-//     }
-//     //content to fill remaining space in grid, -- is there a better way to do this?
-//     for (let i = 0; i < 4; i++) {
-//         const div = document.createElement('div');
-//         div.className = "letter-div";
-//         const paragraph = document.createElement('p');
-//         paragraph.textContent = "!";
-//         paragraph.className = "letter-placeholder";
-//         div.appendChild(paragraph);
-//         alphabetGrid.appendChild(div);
-//     }
-// }
-
-
 
 function generateFlowers() {
     //flower-top
@@ -198,6 +164,20 @@ function submitLetter() {
             wordDisplay.textContent = wordPlaceholderArray.join(" ");
             message = "You guessed correctly!"
             displayMessage(message);
+                    
+            //if win logic here
+                //boolean - does wordPlaceholderArray contain underscore character?
+           
+            let isMissingLetters = true;
+            if (wordPlaceholderArray.includes("_")) {
+                message = "You guessed correctly!"
+                displayMessage(message);
+            } else {
+                isMissingLetters = false;
+                message = "You guessed correctly and win!"
+                displayMessage(message);
+                isGameOver = true;
+            }          
    
         } else {
             targetFlowerIndex++;
